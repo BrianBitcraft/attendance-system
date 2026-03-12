@@ -1,12 +1,7 @@
 import sqlite3
 
-# Connect to database (creates database.db if it doesn't exist)
 conn = sqlite3.connect("database.db")
 cursor = conn.cursor()
-
-# ==========================
-# CREATE TABLES
-# ==========================
 
 # USERS TABLE
 cursor.execute("""
@@ -17,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users(
 )
 """)
 
-# STUDENTS TABLE (with parent email)
+# STUDENTS TABLE with email
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS students(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,18 +33,12 @@ CREATE TABLE IF NOT EXISTS attendance(
 )
 """)
 
-# ==========================
-# DEFAULT DATA
-# ==========================
-
-# Insert default lecturer/admin login if it doesn't exist
+# Insert default admin if not exists
 cursor.execute("""
 INSERT OR IGNORE INTO users(username, password)
 VALUES('admin','1234')
 """)
 
-# Commit changes and close connection
 conn.commit()
 conn.close()
-
 print("Database created successfully with email column in students!")
