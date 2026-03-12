@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Take Attendance</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        /* Global Reset & Fonts */
+<title>Take Attendance</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+   /* Global Reset & Fonts */
         * {
             margin: 0;
             padding: 0;
@@ -14,25 +13,26 @@
         }
 
         body {
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            background: linear-gradient(135deg, #fc5c7d, #6a82fb);
             color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             transition: background 0.5s ease-in-out;
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
             text-align: center;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        p {
-            font-size: 1.1rem;
+        h3 {
+            font-size: 1.2rem;
             margin-bottom: 20px;
             text-align: center;
             opacity: 0.9;
@@ -45,18 +45,18 @@
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 500px;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         label {
             font-weight: bold;
-            margin-bottom: 5px;
         }
 
-        select {
+        input[type="text"],
+        input[type="password"] {
             padding: 12px;
             border-radius: 10px;
             border: 2px solid #fff;
@@ -67,14 +67,13 @@
             transition: 0.3s;
         }
 
-        select:hover,
-        select:focus {
+        input[type="text"]:focus,
+        input[type="password"]:focus {
             background: rgba(255, 255, 255, 0.3);
             transform: scale(1.02);
         }
 
-        /* Scan Fingerprint Button Styling */
-        button {
+        button[type="submit"] {
             padding: 12px 20px;
             border: 2px solid #fff;
             border-radius: 12px;
@@ -87,7 +86,7 @@
             transition: 0.4s;
         }
 
-        button::before {
+        button[type="submit"]::before {
             content: "";
             position: absolute;
             top: 0;
@@ -99,50 +98,12 @@
             transition: all 0.5s;
         }
 
-        button:hover::before {
+        button[type="submit"]:hover::before {
             left: 100%;
         }
 
-        button:hover {
-            color: #ff758c;
-            background-color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Back button styling */
-        a {
-            display: inline-block;
-            padding: 12px 25px;
-            border: 2px solid #fff;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            transition: 0.4s;
-            margin-top: 15px;
-        }
-
-        a::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: skewX(-20deg);
-            transition: all 0.5s;
-        }
-
-        a:hover::before {
-            left: 100%;
-        }
-
-        a:hover {
-            color: #ff758c;
+        button[type="submit"]:hover {
+            color: #fc5c7d;
             background-color: #fff;
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
@@ -151,10 +112,10 @@
         /* Responsive adjustments */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
 
-            p {
+            h3 {
                 font-size: 1rem;
             }
 
@@ -162,9 +123,9 @@
                 padding: 20px;
             }
 
-            select,
-            button,
-            a {
+            input[type="text"],
+            input[type="password"],
+            button[type="submit"] {
                 font-size: 0.9rem;
                 padding: 10px;
             }
@@ -172,66 +133,65 @@
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
 
-            p {
+            h3 {
                 font-size: 0.9rem;
             }
 
             form {
-                gap: 15px;
+                gap: 12px;
             }
 
-            select,
-            button,
-            a {
+            input[type="text"],
+            input[type="password"],
+            button[type="submit"] {
                 font-size: 0.85rem;
             }
         }
-    </style>
+</style>
 </head>
-
 <body>
 
-    <h1>Take Attendance</h1>
-    <p>Student Attendance Management System</p>
-    <p>Developed by AGNES NYAMBURA</p>
+<h1>Take Attendance</h1>
+<p>Student Attendance Management System</p>
+<p>Developed by AGNES NYAMBURA</p>
 
-    <form id="attendanceForm" action="/mark_attendance" method="POST">
+<form id="attendanceForm" action="/mark_attendance" method="POST">
 
-        <label>Select Student</label><br>
+<label>Select Student</label>
+<select name="student_id" required>
+<option value="">-- Select Student --</option>
+{% for student in students %}
+<option value="{{ student[0] }}">
+{{ student[1] }} - {{ student[2] }}
+</option>
+{% endfor %}
+</select>
 
-        <select name="student_id">
-            {% for student in students %}
-            <option value="{{student[0]}}">
-                {{student[1]}} - {{student[2]}}
-            </option>
-            {% endfor %}
-        </select>
+<button type="button" onclick="scanFingerprint()">Scan Fingerprint</button>
+</form>
 
-        <br><br>
+<a href="/dashboard">Back to Dashboard</a>
 
-        <!-- Scan Fingerprint Button -->
-        <button type="button" onclick="scanFingerprint()">Scan Fingerprint</button>
+<script>
+function scanFingerprint(){
+    // Detect device
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    </form>
+    if(isMobile){
+        alert("Place your finger on the screen to mark attendance.");
+    } else {
+        alert("Place finger on the laptop fingerprint scanner to mark attendance.");
+    }
 
-    <br>
-
-    <a href="/dashboard">Back to Dashboard</a>
-
-    <script>
-        function scanFingerprint() {
-            alert("Place finger on sensor...");
-
-            setTimeout(function () {
-                alert("Fingerprint verified!");
-                document.getElementById("attendanceForm").submit();
-            }, 2000);
-        }
-    </script>
+    setTimeout(function(){
+        alert("Fingerprint verified!");
+        document.getElementById("attendanceForm").submit();
+    },2000);
+}
+</script>
 
 </body>
-
 </html>

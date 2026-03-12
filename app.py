@@ -133,7 +133,7 @@ def attendance():
     cursor.execute("SELECT * FROM students")
     students = cursor.fetchall()
     conn.close()
-    return render_template("attendance.html", students=students)
+    return render_template("mark_attendance.html", students=students)
 
 
 # -------------------- MARK ATTENDANCE --------------------

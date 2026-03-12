@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        /* Global Reset & Fonts */
+<title>Login</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+   /* Global Reset & Fonts */
         * {
             margin: 0;
             padding: 0;
@@ -151,32 +150,26 @@
                 font-size: 0.85rem;
             }
         }
-    </style>
+</style>
 </head>
-
 <body>
 
-    <h1>Student Attendance Management System</h1>
+<h1>Student Attendance Management System</h1>
+<h3>Developed by AGNES WAMBUI NYAMBURA</h3>
 
-    <h3>Developed by AGNES WAMBUI NYAMBURA</h3>
+<form action="/login" method="POST">
+<label>Username</label>
+<input type="text" name="username" required>
 
-    <form action="/login" method="POST">
+<label>Password</label>
+<input type="password" name="password" required>
 
-        <label>Username</label><br>
-        <input type="text" name="username" required><br><br>
-
-        <label>Password</label><br>
-        <input type="password" name="password" required><br><br>
-
-        <button type="submit">Login</button>
-
-    </form>
-    <br>
+<button type="submit">Login</button>
+</form>
 
 <a href="/attendance">
 <button type="button">Student Attendance</button>
 </a>
 
 </body>
-
 </html>
