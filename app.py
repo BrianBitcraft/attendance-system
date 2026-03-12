@@ -15,7 +15,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "default_secret_key")
 # -------------------- DATABASE CONNECTION --------------------
 def connect_db():
     conn = sqlite3.connect("database.db")
-    conn.row_factory = sqlite3.Row  # Allows dictionary-style access
+    conn.row_factory = sqlite3.Row
     return conn
 
 # -------------------- EMAIL FUNCTION --------------------
@@ -139,6 +139,11 @@ def attendance():
 def mark_attendance():
     if "username" not in session:
         return redirect("/")
+
+    # Only allow mobile users
+    user_agent = request.headers.get("User-Agent", "")
+    if not any(x in user_agent for x in ["iPhone", "iPad", "iPod", "Android"]):
+        return "Attendance marking only works on smartphones with fingerprint scanner."
 
     student_id = request.form.get("student_id")
     if not student_id:

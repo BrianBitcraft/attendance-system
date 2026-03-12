@@ -5,7 +5,6 @@
     <title>Students List</title>
     <link rel="stylesheet" href="/static/style.css">
     <style>
-        /* Global Reset & Fonts */
         * {
             margin: 0;
             padding: 0;
@@ -14,14 +13,13 @@
         }
 
         body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
             color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            transition: background 0.5s ease-in-out;
         }
 
         h1 {
@@ -38,7 +36,6 @@
             opacity: 0.9;
         }
 
-        /* Table Styling */
         table {
             width: 100%;
             max-width: 900px;
@@ -68,7 +65,6 @@
             transition: transform 0.2s ease, background 0.3s ease;
         }
 
-        /* Back button styling */
         a {
             display: inline-block;
             padding: 12px 25px;
@@ -100,13 +96,12 @@
         }
 
         a:hover {
-            color: #6a11cb;
+            color: #4facfe;
             background-color: #fff;
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
@@ -145,29 +140,26 @@
 <body>
 
     <h1>Registered Students</h1>
-
     <p>Student Attendance Management System</p>
-    <p>Developed by AGNES NYAMBURAs</p>
+    <p>Developed by AGNES NYAMBURA</p>
 
-    <br>
-
-    <table border="1">
+    <table>
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Registration Number</th>
+            <th>Parent Email</th>
         </tr>
 
         {% for student in students %}
         <tr>
-            <td>{{student[0]}}</td>
-            <td>{{student[1]}}</td>
-            <td>{{student[2]}}</td>
+            <td>{{ student[0] }}</td>
+            <td>{{ student[1] }}</td>
+            <td>{{ student[2] }}</td>
+            <td>{{ student[3] or '-' }}</td>
         </tr>
         {% endfor %}
     </table>
-
-    <br>
 
     <a href="/dashboard">Back to Dashboard</a>
 

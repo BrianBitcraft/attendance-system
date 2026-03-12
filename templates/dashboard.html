@@ -5,7 +5,6 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="/static/style.css">
     <style>
-        /* Global Reset & Fonts */
         * {
             margin: 0;
             padding: 0;
@@ -14,14 +13,13 @@
         }
 
         body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
             color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            transition: background 0.5s ease-in-out;
         }
 
         h1 {
@@ -44,7 +42,6 @@
             opacity: 0.9;
         }
 
-        /* Navigation styling */
         nav {
             display: flex;
             flex-wrap: wrap;
@@ -65,7 +62,6 @@
             transition: 0.4s;
         }
 
-        /* Button hover animation */
         nav a::before {
             content: "";
             position: absolute;
@@ -83,13 +79,12 @@
         }
 
         nav a:hover {
-            color: #6a11cb;
+            color: #4facfe;
             background-color: #fff;
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
@@ -125,25 +120,18 @@
 <body>
 
     <h1>Dashboard</h1>
-
     <h3>Student Attendance Management System</h3>
-
     <p>Developed by AGNES NYAMBURA</p>
 
-    <br>
-
-    <!-- Navigation Links -->
     <nav>
-        <a href="/dashboard">Dashboard</a> |
-        <a href="/register_user">New User</a> |
-        <a href="/register">New Student</a> |
-        <a href="/students">View Students</a> |
-        <a href="/attendance">Take Attendance</a> |
-        <a href="/attendance_report">Attendance Report</a> |
+        <a href="/dashboard">Dashboard</a>
+        <a href="/register_user">New User</a>
+        <a href="/register">New Student</a>
+        <a href="/students">View Students</a>
+        <a href="/attendance">Take Attendance</a>
+        <a href="/attendance_report">Attendance Report</a>
         <a href="/logout">Logout</a>
     </nav>
-
-    <br><br>
 
 </body>
 

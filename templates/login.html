@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
-<link rel="stylesheet" href="/static/style.css">
-<style>
-   /* Global Reset & Fonts */
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +12,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #fc5c7d, #6a82fb);
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
             color: #fff;
             min-height: 100vh;
             display: flex;
@@ -21,7 +20,6 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            transition: background 0.5s ease-in-out;
         }
 
         h1 {
@@ -38,7 +36,6 @@
             opacity: 0.9;
         }
 
-        /* Form Styling */
         form {
             background: rgba(255, 255, 255, 0.1);
             padding: 25px 30px;
@@ -103,13 +100,24 @@
         }
 
         button[type="submit"]:hover {
-            color: #fc5c7d;
+            color: #4facfe;
             background-color: #fff;
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Responsive adjustments */
+        a button {
+            margin-top: 10px;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        a button:hover {
+            color: #4facfe;
+            background-color: #fff;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -150,26 +158,26 @@
                 font-size: 0.85rem;
             }
         }
-</style>
+    </style>
 </head>
 <body>
 
-<h1>Student Attendance Management System</h1>
-<h3>Developed by AGNES WAMBUI NYAMBURA</h3>
+    <h1>Student Attendance Management System</h1>
+    <h3>Developed by AGNES WAMBUI NYAMBURA</h3>
 
-<form action="/login" method="POST">
-<label>Username</label>
-<input type="text" name="username" required>
+    <form action="/login" method="POST">
+        <label>Username</label>
+        <input type="text" name="username" required>
 
-<label>Password</label>
-<input type="password" name="password" required>
+        <label>Password</label>
+        <input type="password" name="password" required>
 
-<button type="submit">Login</button>
-</form>
+        <button type="submit">Login</button>
+    </form>
 
-<a href="/attendance">
-<button type="button">Student Attendance</button>
-</a>
+    <a href="/attendance">
+        <button type="button">Student Attendance</button>
+    </a>
 
 </body>
 </html>
