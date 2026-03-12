@@ -12,8 +12,8 @@ cursor = conn.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    password TEXT
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
 )
 """)
 
@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS users(
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS students(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    reg_number TEXT,
+    name TEXT NOT NULL,
+    reg_number TEXT UNIQUE NOT NULL,
     email TEXT
 )
 """)
@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS students(
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS attendance(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    student_id INTEGER,
-    date TEXT,
-    time TEXT,
+    student_id INTEGER NOT NULL,
+    date TEXT NOT NULL,
+    time TEXT NOT NULL,
     FOREIGN KEY(student_id) REFERENCES students(id)
 )
 """)
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS attendance(
 # DEFAULT DATA
 # ==========================
 
-# Insert default lecturer/admin login (if not exists)
+# Insert default lecturer/admin login if it doesn't exist
 cursor.execute("""
 INSERT OR IGNORE INTO users(username, password)
 VALUES('admin','1234')
@@ -52,4 +52,4 @@ VALUES('admin','1234')
 conn.commit()
 conn.close()
 
-print("Database created successfully!")
+print("Database created successfully with email column in students!")
