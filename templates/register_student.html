@@ -3,83 +3,127 @@
 <head>
 <title>Register Student</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/static/style.css">
+
 <style>
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #4facfe, #00f2fe);
-    color: #fff;
+    color: white;
     text-align: center;
     padding: 20px;
 }
 
-h1 { margin-bottom: 10px; }
-p { margin-bottom: 20px; }
-
-form {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
+.container {
+    background: rgba(0,0,0,0.2);
+    padding: 25px;
     border-radius: 15px;
-    max-width: 400px;
+    max-width: 420px;
     margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 }
 
-input, button, select {
-    padding: 10px;
-    border-radius: 10px;
+h1 {
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
     border: none;
+    border-radius: 10px;
     font-size: 1rem;
 }
 
-button {
-    background: #00f2fe;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #4facfe;
-}
-
 .fingerprint-btn {
-    background: url('/static/fingerprint.png') no-repeat center center;
-    background-size: contain;
-    height: 150px;
-    width: 150px;
-    margin: auto;
-    cursor: pointer;
+    margin-top: 20px;
+    width: 120px;
+    height: 120px;
     border: none;
+    cursor: pointer;
+    background: url('/static/fingerprint.png') no-repeat center;
+    background-size: contain;
+    transition: transform 0.2s;
 }
 
-a { color: #fff; margin-top: 15px; display: block; }
+.fingerprint-btn:active {
+    transform: scale(1.1);
+}
+
+button.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #0b6efd;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button.submit-btn:disabled {
+    background: gray;
+    cursor: not-allowed;
+}
+
+a {
+    color: white;
+    display: block;
+    margin-top: 15px;
+}
 </style>
 </head>
+
 <body>
 
 <h1>Register Student</h1>
-<p>Student Attendance Management System</p>
 
-<form action="/add_student" method="POST">
+<div class="container">
+
+<form id="studentForm" action="/add_student" method="POST">
+
     <input type="text" name="name" placeholder="Student Name" required>
     <input type="text" name="reg_number" placeholder="Registration Number" required>
     <input type="email" name="email" placeholder="Parent Email" required>
-    
-    <button type="button" class="fingerprint-btn" onclick="registerFingerprint()"></button>
-    <button type="submit">Register Student</button>
+
+    <!-- fingerprint step -->
+    <button type="button" class="fingerprint-btn" onclick="verifyFingerprint()"></button>
+
+    <input type="hidden" id="fingerprint_verified" value="false">
+
+    <button type="submit" class="submit-btn" id="submitBtn" disabled>
+        Register Student
+    </button>
+
 </form>
 
 <a href="/dashboard">Back to Dashboard</a>
 
+</div>
+
 <script>
-function registerFingerprint(){
-    alert("Place finger to register fingerprint...");
-    setTimeout(() => alert("Fingerprint registered successfully!"), 2000);
+function verifyFingerprint() {
+
+    alert("Place your finger on the scanner...");
+
+    // 🔐 Placeholder for real WebAuthn fingerprint
+    setTimeout(() => {
+        alert("Fingerprint verified successfully!");
+
+        document.getElementById("fingerprint_verified").value = "true";
+        document.getElementById("submitBtn").disabled = false;
+
+    }, 1500);
 }
+
+// block fake submission
+document.getElementById("studentForm").addEventListener("submit", function(e) {
+
+    if (document.getElementById("fingerprint_verified").value !== "true") {
+        e.preventDefault();
+        alert("Please verify fingerprint first!");
+    }
+});
 </script>
 
 </body>

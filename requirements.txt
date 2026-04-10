@@ -1,3 +1,5 @@
 flask
-gunicorn
 python-dotenv
+werkzeug
+fido2
+gunicorn
