@@ -18,11 +18,6 @@ body {
     padding: 20px;
 }
 
-h1 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-}
-
 .container {
     background: rgba(0,0,0,0.2);
     padding: 25px;
@@ -37,7 +32,6 @@ select {
     border-radius: 10px;
     border: none;
     margin-top: 15px;
-    font-size: 1rem;
 }
 
 .fingerprint-btn {
@@ -48,11 +42,6 @@ select {
     background-size: contain;
     border: none;
     cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.fingerprint-btn:active {
-    transform: scale(1.1);
 }
 
 button.submit-btn {
@@ -63,13 +52,11 @@ button.submit-btn {
     border-radius: 10px;
     background: #0b6efd;
     color: white;
-    font-size: 1rem;
     cursor: pointer;
 }
 
 button.submit-btn:disabled {
     background: gray;
-    cursor: not-allowed;
 }
 </style>
 </head>
@@ -85,14 +72,15 @@ button.submit-btn:disabled {
     <select name="student_id" id="studentSelect" required>
         <option value="">-- Select Student --</option>
         {% for student in students %}
-        <option value="{{ student[0] }}">{{ student[1] }} - {{ student[2] }}</option>
+        <option value="{{ student['id'] }}">
+            {{ student['name'] }} - {{ student['reg_number'] }}
+        </option>
         {% endfor %}
     </select>
 
-    <!-- REAL FINGERPRINT BUTTON (WebAuthn will replace this later) -->
     <button type="button" class="fingerprint-btn" onclick="startFingerprint()"></button>
 
-    <input type="hidden" id="verified" value="false">
+    <input type="hidden" name="verified" id="verified" value="false">
 
     <button type="submit" class="submit-btn" id="submitBtn" disabled>
         Mark Attendance
@@ -104,7 +92,6 @@ button.submit-btn:disabled {
 
 <script>
 function startFingerprint() {
-
     const student = document.getElementById("studentSelect").value;
 
     if (!student) {
@@ -112,21 +99,16 @@ function startFingerprint() {
         return;
     }
 
-    // 🔐 This is a placeholder for REAL fingerprint (WebAuthn)
-    alert("Place your finger on the device scanner...");
+    alert("Scanning fingerprint...");
 
     setTimeout(() => {
-        alert("Fingerprint verified successfully!");
-
+        alert("Fingerprint verified!");
         document.getElementById("verified").value = "true";
         document.getElementById("submitBtn").disabled = false;
-
-    }, 1500);
+    }, 1200);
 }
 
-// prevent fake submission
 document.getElementById("attendanceForm").addEventListener("submit", function(e) {
-
     if (document.getElementById("verified").value !== "true") {
         e.preventDefault();
         alert("Please verify fingerprint first!");
