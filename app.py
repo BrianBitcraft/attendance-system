@@ -77,6 +77,39 @@ def dashboard():
     return render_template("dashboard.html")
 
 
+# ---------------- REGISTER USER (FIX ADDED HERE) ----------------
+@app.route("/register_user")
+def register_user():
+    if "username" not in session:
+        return redirect("/")
+    return render_template("register_user.html")
+
+
+@app.route("/add_user", methods=["POST"])
+def add_user():
+    if "username" not in session:
+        return redirect("/")
+
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    hashed_password = generate_password_hash(password)
+
+    conn = connect_db()
+    try:
+        conn.execute(
+            "INSERT INTO users(username, password) VALUES(?,?)",
+            (username, hashed_password)
+        )
+        conn.commit()
+    except Exception as e:
+        return f"Error: {e}"
+    finally:
+        conn.close()
+
+    return redirect("/dashboard")
+
+
 # ---------------- STUDENTS ----------------
 @app.route("/register")
 def register_student():
