@@ -3,6 +3,7 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="/static/style.css">
+
     <style>
         * {
             margin: 0;
@@ -23,15 +24,15 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 10px;
             text-align: center;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 25px;
             text-align: center;
             opacity: 0.9;
         }
@@ -52,8 +53,7 @@
             font-weight: bold;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input {
             padding: 12px;
             border-radius: 10px;
             border: 2px solid #fff;
@@ -61,54 +61,61 @@
             color: #fff;
             font-size: 1rem;
             outline: none;
-            transition: 0.3s;
         }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus {
+        input:focus {
             background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.02);
         }
 
         button {
-            padding: 12px 20px;
+            padding: 12px;
             border: 2px solid #fff;
             border-radius: 12px;
             font-weight: bold;
             background: transparent;
             color: #fff;
             cursor: pointer;
-            transition: 0.4s;
+            transition: 0.3s;
         }
 
         button:hover {
             background: #fff;
             color: #4facfe;
-            transform: translateY(-3px);
         }
 
-        .btn-group {
+        .links {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: 10px;
         }
 
-        a {
+        .links a {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 2px solid white;
+            border-radius: 10px;
+            color: white;
             text-decoration: none;
+            transition: 0.3s;
         }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 1.6rem; }
-            h3 { font-size: 0.9rem; }
+        .links a:hover {
+            background: white;
+            color: #4facfe;
         }
     </style>
 </head>
+
 <body>
 
     <h1>Student Attendance Management System</h1>
     <h3>Developed by AGNES WAMBUI NYAMBURA</h3>
 
+    <!-- LOGIN FORM -->
     <form action="/login" method="POST">
         <label>Username</label>
         <input type="text" name="username" required>
@@ -117,18 +124,13 @@
         <input type="password" name="password" required>
 
         <button type="submit">Login</button>
-
-        <!-- NEW BUTTON GROUP -->
-        <div class="btn-group">
-            <a href="/register_user">
-                <button type="button">Register User</button>
-            </a>
-
-            <a href="/attendance">
-                <button type="button">Student Attendance</button>
-            </a>
-        </div>
     </form>
+
+    <!-- NAVIGATION LINKS -->
+    <div class="links">
+        <a href="/register_user">Register User</a>
+        <a href="/attendance">Student Attendance</a>
+    </div>
 
 </body>
 </html>
