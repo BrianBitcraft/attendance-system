@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 import sqlite3
 import datetime
 import os
@@ -43,24 +43,38 @@ def send_email(parent_email, student_name):
 
 # ---------------- LOGIN ----------------
 @app.route("/")
-def login():
+def home():
     return render_template("login.html")
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login_user():
-    username = request.form.get("username")
-    password = request.form.get("password")
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
 
-    conn = connect_db()
-    user = conn.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
-    conn.close()
+        print("DEBUG:", username, password)  # 👈 helps debug
 
-    if user and check_password_hash(user["password"], password):
-        session["username"] = username
-        return redirect("/dashboard")
+        if not username or not password:
+            return "Missing username or password"
 
-    return "Invalid login"
+        conn = connect_db()
+        user = conn.execute(
+            "SELECT * FROM users WHERE username=?",
+            (username,)
+        ).fetchone()
+        conn.close()
+
+        if user:
+            print("Stored hash:", user["password"])  # debug
+
+        if user and check_password_hash(user["password"], password):
+            session["username"] = username
+            return redirect("/dashboard")
+
+        return "Invalid login credentials"
+
+    return redirect("/")  # GET request goes back to login page
 
 
 @app.route("/logout")
@@ -77,7 +91,7 @@ def dashboard():
     return render_template("dashboard.html")
 
 
-# ---------------- REGISTER USER (FIX ADDED HERE) ----------------
+# ---------------- REGISTER USER ----------------
 @app.route("/register_user")
 def register_user():
     if "username" not in session:
@@ -92,6 +106,9 @@ def add_user():
 
     username = request.form.get("username")
     password = request.form.get("password")
+
+    if not username or not password:
+        return "Missing data"
 
     hashed_password = generate_password_hash(password)
 
@@ -126,6 +143,9 @@ def add_student():
     name = request.form.get("name")
     reg_number = request.form.get("reg_number")
     email = request.form.get("email")
+
+    if not name or not reg_number:
+        return "Missing student details"
 
     conn = connect_db()
     try:
